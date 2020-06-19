@@ -29,7 +29,7 @@ abstract class Personnummer implements IdentityNumber {
      * @param value Social security number to validate, as string.
      * @return True if valid.
      */
-    private boolean valid(CharSequence value, IntUnaryOperator numberType) {
+    private static boolean valid(CharSequence value, IntUnaryOperator numberType) {
         if (value == null) {
             return false;
         }
