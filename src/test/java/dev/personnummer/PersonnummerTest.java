@@ -1,4 +1,7 @@
 package dev.personnummer;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 import org.junit.Test;
 
 public class PersonnummerTest {
@@ -56,5 +59,18 @@ public class PersonnummerTest {
         new PersonalNumber("640883-3231");
     }
     
+    @Test
+    public void testEquals() {
+    	 Samordningsnummer one = new Samordningsnummer("701063-2391");
+    	 Samordningsnummer two = new Samordningsnummer("701063-2391");
+    	 assertEquals(one,two);
+    }
+    
+    @Test
+    public void testNonEquals() {
+     	 Samordningsnummer one = new Samordningsnummer("701063-2391");
+    	 Samordningsnummer two = new Samordningsnummer("640883-3231");
+    	 assertNotEquals(one,two);
+    }
 
 }

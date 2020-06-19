@@ -101,9 +101,4 @@ abstract class Personnummer implements IdentityNumber {
 		return longFormat().substring(2);
 	}
 	
-	public long asLong() {
-		return Long.parseLong(number);
-	}
-    
-
 }

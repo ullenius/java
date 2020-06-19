@@ -8,7 +8,24 @@ public class PersonalNumber extends Personnummer implements Comparable<PersonalN
 
 	@Override
 	public int compareTo(PersonalNumber o) {
-		return Long.compare(this.asLong(), o.asLong());
+		return longFormat().compareTo(o.longFormat());
+	}
+	
+	@Override
+	public int hashCode() {
+		return longFormat().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PersonalNumber other = (PersonalNumber) obj;
+		return longFormat().contentEquals(other.longFormat());
 	}
 	
 }
