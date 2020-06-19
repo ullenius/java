@@ -98,7 +98,12 @@ abstract class Personnummer implements IdentityNumber {
 	}
 	
 	public String shortFormat() {
-		return longFormat().substring(2);
+		return (hasLongFormat()) ? longFormat().substring(2) : longFormat();
+		
+	}
+	
+	public boolean hasLongFormat() {
+		return (longFormat().length() == 13); // 10 digits number, 2 for century. 1 char for +/-
 	}
 	
 }

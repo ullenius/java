@@ -1,6 +1,5 @@
 package dev.personnummer;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -73,4 +72,42 @@ public class PersonnummerTest {
     	 assertNotEquals(one,two);
     }
 
+    @Test
+    public void testShortFormat() {
+    	
+    	IdentityNumber one = new PersonalNumber("19900101-0017");
+    	assertEquals("900101-0017", one.shortFormat());
+    	assertTrue(one.hasLongFormat());
+    }
+    
+    @Test
+    public void testNoLongFormat() {
+    	
+    	IdentityNumber one = new PersonalNumber("900101-0017");
+    	assertEquals("900101-0017", one.shortFormat());
+    	assertEquals(one.longFormat(), one.shortFormat());
+    	assertFalse(one.hasLongFormat());
+    }
+    
+    @Test
+    public void testEqualHashCode() {
+    	
+    	IdentityNumber one = new PersonalNumber("900101-0017");
+    	IdentityNumber two = new PersonalNumber("900101-0017");
+    	
+    	assertNotSame(one,two); // don't cheat
+    	assertEquals(one.hashCode(), two.hashCode());
+    }
+    
+    
+    @Test
+    public void testNotEqualHashCode() {
+    	
+    	IdentityNumber one = new PersonalNumber("900101-0017");
+    	IdentityNumber two = new PersonalNumber("19130401+2931");
+    	
+    	assertNotEquals(one.hashCode(), two.hashCode());
+    }
+    
+    
 }
