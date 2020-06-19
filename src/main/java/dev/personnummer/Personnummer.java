@@ -1,23 +1,27 @@
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+package dev.personnummer;
+import java.text.*;
+import java.util.function.IntUnaryOperator;
+import java.util.regex.*;
 
 /**
- * Class used to validate Swedish social security numbers.
+ * Class used to validate Swedish identity numbers (Samordningsnummer and Personnummer)
  *
  * @author Johannes Tegnér
  */
-public final class Personnummer {
+abstract class Personnummer implements IdentityNumber {
     private static final Pattern regexPattern;
+    private String number;
 
     static {
         regexPattern = Pattern.compile("^(\\d{2})?(\\d{2})(\\d{2})(\\d{2})([-|+]?)?(\\d{3})(\\d?)$");
     }
     
-    private Personnummer() {
-    	throw new AssertionError("Class cannot be instantiated");
-    }
+   public Personnummer(CharSequence number, IntUnaryOperator numberType) {
+	   if (!valid(number, numberType)) 
+		   throw new IllegalArgumentException("Invalid personal number");
+	   
+	   this.number = number.toString();
+   }
 
     /**
      * Validate a Swedish social security number.
@@ -25,7 +29,7 @@ public final class Personnummer {
      * @param value Social security number to validate, as string.
      * @return True if valid.
      */
-    public static boolean valid(String value) {
+    private static boolean valid(CharSequence value, IntUnaryOperator numberType) {
         if (value == null) {
             return false;
         }
@@ -50,17 +54,8 @@ public final class Personnummer {
         // The format passed to Luhn method is supposed to be YYmmDDNNN
         // Hence all numbers that are less than 10 (or in last case 100) will have leading 0's added.
         int luhn = luhn(String.format("%02d%02d%02d%03d0", year, month, day, number));
-        return (luhn == control) && (testDate(year, month, day) || testDate(year, month, day - 60));
-    }
-
-    /**
-     * Validate a Swedish social security number.
-     *
-     * @param value Social security number to validate, as long.
-     * @return True if valid.
-     */
-    public static boolean valid(long value) {
-        return valid(Long.toString(value));
+        day = numberType.applyAsInt(day);
+        return (luhn == control) && (testDate(year, month, day));
     }
 
     private static int luhn(String value) {
@@ -93,5 +88,22 @@ public final class Personnummer {
             return false;
         }
     }
-
+    
+	public String toString() {
+		return longFormat();
+	}
+	
+	public String longFormat() {
+		return number;
+	}
+	
+	public String shortFormat() {
+		return (hasLongFormat()) ? longFormat().substring(2) : longFormat();
+		
+	}
+	
+	public boolean hasLongFormat() {
+		return (longFormat().length() == 13); // 10 digits number, 2 for century. 1 char for +/-
+	}
+	
 }
