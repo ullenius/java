@@ -25,7 +25,7 @@ class Test {
     }
 }
 ```
-See [`src/test/java/PersonnummerTest.java`](src/test/java/PersonnummerTest.java) for more examples.
+See [`src/test/java/PersonnummerTest.java`](src/test/java/dev/personnummer/PersonnummerTest.java) for more examples.
 
 ## Licence
 
