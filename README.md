@@ -1,5 +1,5 @@
 # Personnummer
-Store and validate Swedish identity numbers (Samordningsnummer and Personnummer)
+Immutable class for storing Swedish identity numbers (Samordningsnummer and Personnummer)
 
 ## Example
 

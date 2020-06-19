@@ -10,7 +10,7 @@ import java.util.regex.*;
  */
 abstract class Personnummer implements IdentityNumber {
     private static final Pattern regexPattern;
-    private String number;
+    private final String number;
 
     static {
         regexPattern = Pattern.compile("^(\\d{2})?(\\d{2})(\\d{2})(\\d{2})([-|+]?)?(\\d{3})(\\d?)$");
