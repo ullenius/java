@@ -20,7 +20,7 @@ abstract class Personnummer implements IdentityNumber {
     
    public Personnummer(CharSequence number, IntUnaryOperator numberType) {
 	   if (!valid(number, numberType)) 
-		   throw new InstantiationError("Invalid personal number");
+		   throw new IllegalArgumentException("Invalid personal number");
 	   
 	   this.number = number.toString();
    }

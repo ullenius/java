@@ -1,62 +1,60 @@
 package dev.personnummer;
 import org.junit.Test;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class PersonnummerTest {
 
     @Test
     public void testWithControlDigit() {
-        assertTrue(Personnummer.valid("6403273813"));
-        assertTrue(Personnummer.valid("510818-9167"));
-        assertTrue(Personnummer.valid("19900101-0017"));
-        assertTrue(Personnummer.valid("19130401+2931"));
-        assertTrue(Personnummer.valid("196408233234"));
-        assertTrue(Personnummer.valid("0001010107"));
-        assertTrue(Personnummer.valid("000101-0107"));
-        assertTrue(Personnummer.valid("1010101010"));
-        assertTrue(Personnummer.valid(6403273813L));
-        assertTrue(Personnummer.valid(5108189167L));
-        assertTrue(Personnummer.valid(199001010017L));
-        assertTrue(Personnummer.valid(191304012931L));
-        assertTrue(Personnummer.valid(196408233234L));
+        new PersonalNumber("6403273813");
+        new PersonalNumber("510818-9167");
+        new PersonalNumber("19900101-0017");
+        new PersonalNumber("19130401+2931");
+        new PersonalNumber("196408233234");
+        new PersonalNumber("0001010107");
+        new PersonalNumber("000101-0107");
+        new PersonalNumber("1010101010");
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testWithoutControlDigit() {
-        assertFalse(Personnummer.valid(640327381L));
-        assertFalse(Personnummer.valid(510818916L));
-        assertFalse(Personnummer.valid(19900101001L));
-        assertFalse(Personnummer.valid(100101001L));
-        assertFalse(Personnummer.valid("640327-381"));
-        assertFalse(Personnummer.valid("510818-916"));
-        assertFalse(Personnummer.valid("19900101-001"));
-        assertFalse(Personnummer.valid("100101+001"));
+        new PersonalNumber("640327-381");
+        new PersonalNumber("510818-916");
+        new PersonalNumber("19900101-001");
+        new PersonalNumber("100101+001");
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidValues() {
-        assertFalse(Personnummer.valid("A string"));
-        assertFalse(Personnummer.valid("Two"));
-        assertFalse(Personnummer.valid("222"));
-        assertFalse(Personnummer.valid(null));
-        assertFalse(Personnummer.valid("9701063-2391"));
+        new PersonalNumber("A string");
+        new PersonalNumber("Two");
+        new PersonalNumber("222");
+        new PersonalNumber(null);
+        new PersonalNumber("9701063-2391");
     }
 
     @Test
     public void testCoordinationNumbers() {
-        assertTrue(Personnummer.valid("701063-2391"));
-        assertTrue(Personnummer.valid("640883-3231"));
-        assertTrue(Personnummer.valid(7010632391L));
-        assertTrue(Personnummer.valid(6408833231L));
+        new Samordningsnummer("701063-2391");
+        new Samordningsnummer("640883-3231");
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testWithBadCoordinationNumbers() {
-        assertFalse(Personnummer.valid(9001610017L));
-        assertFalse(Personnummer.valid(6408933231L));
-        assertFalse(Personnummer.valid("900161-0017"));
-        assertFalse(Personnummer.valid("640893-3231"));
+        new Samordningsnummer("900161-0017");
+        new Samordningsnummer("640893-3231");
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testPersonnummerAsCoordinationNumbers() {
+    	 new Samordningsnummer("6403273813");
+         new Samordningsnummer("510818-9167");
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void tesCoordinationNumbersAsPersonnummer() {
+        new PersonalNumber("701063-2391");
+        new PersonalNumber("640883-3231");
+    }
+    
 
 }
