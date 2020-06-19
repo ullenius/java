@@ -1,7 +1,5 @@
 # Personnummer
 
-[![Build Status](https://travis-ci.org/personnummer/java.svg?branch=master)](https://travis-ci.org/personnummer/java)
-
 Validate Swedish social security numbers 
 
 ## Example
@@ -17,6 +15,6 @@ class Test {
 
 See [`src/test/java/PersonnummerTest.java`](src/test/java/PersonnummerTest.java) for more examples.
 
-## License
+## Licence
 
-[MIT](LICENSE)
+[MIT](LICENCE)
