@@ -1,12 +1,10 @@
 package dev.personnummer;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.function.IntUnaryOperator;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 
 /**
- * Class used to validate Swedish social security numbers.
+ * Class used to validate Swedish identity numbers (Samordningsnummer and Personnummer)
  *
  * @author Johannes Tegnér
  */
